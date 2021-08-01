@@ -25,3 +25,19 @@ O objetivo do primeiro trabalho é criar projetos que devem realizar o produto M
 
 #### Organização dos arrays
 > Explique como o modo em que os arrays são armazenados nas duas linguagens afetam os resultados.
+
+### Como executar o projeto?
+
+> Makefile em produção.
+
+### Observações gerais
+
+- O arquivo `times.csv` possui o seguinte cabeçalho:
+  - `ORDER,LANG,LOOP_ORDER,TIME`, onde:
+	- `ORDER` é a ordem da matriz A.
+    - `LANG` é a linguagem utilizidada.
+	  - Possíveis valores: `C` e `Fortran`
+	- `LOOP_ORDER` é a ordem de aninhamento do loop.
+	  - Possíveis valores: `IJ` e `JI`
+	- `TIME` é o tempo de execução da função.
+	  - O cálculo é feito pelos próprios programas utilizando `tempo_final - tempo_inicial`
