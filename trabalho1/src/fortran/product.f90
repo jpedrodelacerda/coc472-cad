@@ -6,6 +6,7 @@ PROGRAM PRODUCT
 !     Args:
       ! Matrix Order
       CHARACTER(len=255) :: argMatrixOrder
+      CHARACTER(LEN=255) :: inputDir
       INTEGER :: matrixOrder
       ! Matrix A file to be read
       CHARACTER(len=255) :: aMatrixFile
@@ -22,15 +23,15 @@ PROGRAM PRODUCT
 
 ! PROCESS ARGS
       ! GET MATRIX ORDER AND CONVERT TO INTEGER
-      CALL GET_COMMAND_ARGUMENT(NUMBER=1, VALUE=argMatrixOrder)
+      CALL GET_COMMAND_ARGUMENT(NUMBER=1, VALUE=inputDir)
+      CALL GET_COMMAND_ARGUMENT(NUMBER=2, VALUE=argMatrixOrder)
       READ(argMatrixOrder, '(i5)') matrixOrder
-      CALL GET_COMMAND_ARGUMENT(NUMBER=2, VALUE=loopOrder)
-      ! Marix A file path
-      CALL GET_COMMAND_ARGUMENT(NUMBER=3, VALUE=aMatrixFile)
-      ! Vector x file path
-      CALL GET_COMMAND_ARGUMENT(NUMBER=4, VALUE=xVectorFile)
+      CALL GET_COMMAND_ARGUMENT(NUMBER=3, VALUE=loopOrder)
 
-
+      ! Format matrix input
+      aMatrixFile = TRIM(ADJUSTL(inputDir))//TRIM(ADJUSTL(argMatrixOrder))//".matrix"
+      ! Format vector input
+      xVectorFile = TRIM(ADJUSTL(inputDir))//TRIM(ADJUSTL(argMatrixOrder))//".vector"
 
       ! ALLOCATE ARRAYS
       ALLOCATE(aMatrix(matrixOrder,matrixOrder))
@@ -69,16 +70,16 @@ PROGRAM PRODUCT
         INTEGER :: order
         CHARACTER(LEN=2) :: loopOrder
         REAL(10) :: elapsedTime
-        CHARACTER(LEN=20) :: timeSpent
+        CHARACTER(tp) :: timeSpent
 
 
         CHARACTER(LEN=255) :: logString
 
         WRITE (timeSpent, "(ES10.4)") elapsedTime
         timeSpent = TRIM(timeSpent)
-        WRITE (logString,'(1X, I6, A, A, A)') matrixOrder,",FORTRAN,", loopOrder//",", timeSpent
+        WRITE (logString,'(I6, A, A, A)') matrixOrder,",FORTRAN,", loopOrder//",", timeSpent
 
-        WRITE (*,*) logString
+        WRITE (*,*) TRIM(ADJUSTL(logString))
 
       END SUBROUTINE
 
