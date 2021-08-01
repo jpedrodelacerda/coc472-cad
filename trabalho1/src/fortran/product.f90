@@ -23,7 +23,6 @@ PROGRAM PRODUCT
 ! PROCESS ARGS
       ! GET MATRIX ORDER AND CONVERT TO INTEGER
       CALL GET_COMMAND_ARGUMENT(NUMBER=1, VALUE=argMatrixOrder)
-!c$$$      READ(*, '(i5)') matrixOrder
       READ(argMatrixOrder, '(i5)') matrixOrder
       CALL GET_COMMAND_ARGUMENT(NUMBER=2, VALUE=loopOrder)
       ! Marix A file path
