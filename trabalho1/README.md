@@ -9,7 +9,7 @@ O objetivo do primeiro trabalho é criar projetos que devem realizar o produto M
 - Os projetos devem ser feitos nas linguagens `C` e `Fortran`;
 - Os arrays utilizados durante as operações devem ser aleatórios;
 
-### Questões a serem respondidas
+## Questões a serem respondidas
 
 #### Estimando limites
 > Estime o tamanho máximo dos arrays A, x e b que podem ser alocados no seu sistema para realização da tarefa.
@@ -41,3 +41,12 @@ O objetivo do primeiro trabalho é criar projetos que devem realizar o produto M
 	  - Possíveis valores: `IJ` e `JI`
 	- `TIME` é o tempo de execução da função.
 	  - O cálculo é feito pelos próprios programas utilizando `tempo_final - tempo_inicial`
+
+- Devido ao tamanho dos arquivos de matrizes e vetores, eles não estão contidos no repositório, porém podem ser gerados utilizando o script `create_samples.py`.
+
+
+### Dependências
+
+- `gcc`
+- `gfortran`
+- `python3`
