@@ -29,13 +29,13 @@ def createSamples(path):
 
 def createRandomFloat():
 
-    return random.uniform(-10.0, 10.0)
+    return round(random.uniform(-10.0, 10.0), 4)
 
 
 def createRandomVector(order):
     vector = []
 
-    for i in range(0, order + 1):
+    for i in range(0, order):
         vector.append(createRandomFloat())
 
     return vector
