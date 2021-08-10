@@ -46,12 +46,15 @@ Os arquivos de sistemas são gerados da seguinte forma: `[ORDEM].matrix` e `[ORD
 > Apresente curvas mostrando o tempo de execução para cada dimensão do problema e relacione estas curvas à complexidade computacional do produto matriz - vetor `(O(n^2))`.
 
 - C:
+
 ![](./assets/images/c-times.png)
 
 - Fortran:
+
 ![](./assets/images/f90-times.png)
 
 - Todos os métodos e linguagens:
+
 ![](./assets/images/all-times.png)
 
 Analisando os gráficos, podemos concluir que há uma perda de performance significativa quando é a ordem `ji` é utilizada no código em `C` e que o oposto (queda de performance com a ordem `ij`) acontece com a linguagem `Fortran`. Essa diferença se dá pela forma em que as matrizes são armazenadas em cada uma das linguagens. Este é o próximo assunto a ser discutido.
