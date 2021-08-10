@@ -37,14 +37,30 @@ Os arrays podem ser gerados utilizando o script `create_samples.py` na pasta `sr
 > Comece com um problema de tamanho pequeno e tente chegar ao tamanho máximo estimado no item 1. Contabilize o tempo para realiação das operações para todos os tamanhos de sistema e para ambas as ordens de execução dos loops.
 
 Como criei um arquivo para cada array, a abordagem trouxe consigo uma limitação de espaço em disco, portanto, os arquivos de tempo contam apenas com sistemas de ordem 12000.
+Os arquivos de sistemas são gerados da seguinte forma: `[ORDEM].matrix` e `[ORDEM].vector`. As ordens testadas seguem a sequência seguinte:
+- `1000` a `12000`, incremento de `1000`;
+- `14000`;
+- `16000` a `36000`, incremento de `4000`;
 
 #### Curvas
 > Apresente curvas mostrando o tempo de execução para cada dimensão do problema e relacione estas curvas à complexidade computacional do produto matriz - vetor `(O(n^2))`.
 
+- C:
+[](./assets/images/c-times.png)
+
+- Fortran:
+[](./assets/images/f90-times.png)
+
+- Todos os métodos e linguagens:
+[](./assets/images/all-times.png)
+
+Analisando os gráficos, podemos concluir que há uma perda de performance significativa quando é a ordem `ji` é utilizada no código em `C` e que o oposto (queda de performance com a ordem `ij`) acontece com a linguagem `Fortran`. Essa diferença se dá pela forma em que as matrizes são armazenadas em cada uma das linguagens. Este é o próximo assunto a ser discutido.
+
+
 #### Organização dos arrays
 > Explique como o modo em que os arrays são armazenados nas duas linguagens afetam os resultados.
 
-A abordagem do `Fortran` de armazenamento contínuo é mais otimizada pois o acesso ao valor contido na matriz, se dá através de uma única operação. A abordagem da linguagem `C`, por outro lado, requer uma operação de busca a mais, que acaba tornando o processo um pouco mais custoso.
+A abordagem do `Fortran` de armazenamento contínuo, ou seja, um grande array, é menos otimizada pois o acesso ao valor contido na matriz, acontece de maneira mais espaçada. A abordagem da linguagem `C`, por outro lado, requer uma leitura sequencial dos dados, que acaba tornando o processo menos custoso. Esta diferença fica mais clara quando comparamos as curvas `Ordem x Tempo de execução` vista na questão anterior e as ordens de execução dos loops aninhados: a leitura sequencial de dados ocorre na ordem `ij` no código em `C` e na ordem `ji` no código em `Fortran`.
 
 ### Como executar o projeto?
 
@@ -70,3 +86,5 @@ A abordagem do `Fortran` de armazenamento contínuo é mais otimizada pois o ace
 - `gcc`
 - `gfortran`
 - `python3`
+- `pandas`
+- `matplotlib`

@@ -67,13 +67,12 @@ double *multiply_matrix_ij(double **matrix, double *vector, int order) {
   clock_t start, finish;
   start = clock();
   for (int i = 0; i < order; i++) {
-    for (int j; j < order; j++) {
+    for (int j = 0; j < order; j++) {
       bVec[i] += matrix[i][j] * vector[j];
     }
   }
   finish = clock();
-
-  printf("%d,C,ij,%e\n", order, finish - start);
+  printf("%d,C,ij,%e\n", order, ((double)(finish - start)) / CLOCKS_PER_SEC);
   return bVec;
 }
 
@@ -89,7 +88,8 @@ double *multiply_matrix_ji(double **matrix, double *vector, int order) {
       bVec[i] += matrix[i][j] * vector[j];
     }
   }
-  printf("%d,C,ji,%e\n", order, finish - start);
+  finish = clock();
+  printf("%d,C,ji,%e\n", order, ((double)(finish - start)) / CLOCKS_PER_SEC);
   return bVec;
 }
 
