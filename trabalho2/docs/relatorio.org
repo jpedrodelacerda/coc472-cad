@@ -1,0 +1,42 @@
+#+TITLE: COC472 - Computação de Alto Desempenho
+#+AUTHOR: João Pedro de Lacerda
+#+DATE:02/09/2021
+#+OPTIONS: toc:nil
+#+LaTeX_CLASS_OPTIONS: [a4paper,twosidep]
+
+** Introdução
+#+BEGIN_COMMENT:
+# Introdução
+# Natureza do código (equação sendo aproximada, método utilizado)
+# Importância da perfilagem para a CAD
+#+END_COMMENT:
+
+    Este trabalho consiste na execução do código =./src/laplace.cpp=, que
+
+** Utilizando gprof para perfilar
+   Para perfilar o código, podemos executar o comando
+   #+BEGIN_SRC sh
+     $ make profile
+   #+END_SRC
+   ou
+   #+BEGIN_SRC sh
+     $ g++
+   #+END_SRC
+
+** Relatório inicial
+
+*** Relatório
+   O relatório gerado pelo gprof foi o seguinte:
+#+INCLUDE: "../profiles/profile.txt" example
+
+*** Análise
+    Segundo o flat profile, o tempo de execução é de 0.22s e conseguimos perceber dois hotspots:
+    - função timeStep:
+      #+INCLUDE: "../src/laplace.cpp" src cpp :lines "79-99"
+    - função SQR
+      #+INCLUDE: "../src/laplace.cpp" src cpp :lines "12-13"
+
+
+** Otimizando o código
+
+** Conclusão
