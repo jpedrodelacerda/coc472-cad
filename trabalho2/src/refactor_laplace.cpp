@@ -81,6 +81,8 @@ Real LaplaceSolver ::timeStep(const Real dt) {
   Real dy2 = g->dy * g->dy;
   Real tmp;
   Real err = 0.0;
+  Real sum = dx2 + dy2;
+  Real mult = 1 / sum;
   int nx = g->nx;
   int ny = g->ny;
   Real **u = g->u;
@@ -89,8 +91,9 @@ Real LaplaceSolver ::timeStep(const Real dt) {
       tmp = u[i][j];
       u[i][j] = ((u[i - 1][j] + u[i + 1][j]) * dy2 +
                  (u[i][j - 1] + u[i][j + 1]) * dx2) *
-                0.5 / (dx2 + dy2);
-      err += SQR(u[i][j] - tmp);
+                mult;
+      Real diff = u[i][j] - tmp;
+      err += diff * diff;
     }
   }
   return sqrt(err);

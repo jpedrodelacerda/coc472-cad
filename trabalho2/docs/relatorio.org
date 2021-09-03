@@ -1,42 +1,76 @@
 #+TITLE: COC472 - Computação de Alto Desempenho
+#+SUBTITLE: Trabalho 2
 #+AUTHOR: João Pedro de Lacerda
 #+DATE:02/09/2021
 #+OPTIONS: toc:nil
 #+LaTeX_CLASS_OPTIONS: [a4paper,twosidep]
 
 ** Introdução
-#+BEGIN_COMMENT:
-# Introdução
-# Natureza do código (equação sendo aproximada, método utilizado)
-# Importância da perfilagem para a CAD
-#+END_COMMENT:
 
-    Este trabalho consiste na execução do código =./src/laplace.cpp=, que
+    Este trabalho consiste na execução do código =./src/laplace.cpp= e na perfilagem do código.
+
+O código é um algoritmo para resolução da Equação de Laplace utilizando o método das diferenças finitas.
+
+Sobre a perfilagem, é um processo para entender o comportamento e performance de um código. Esse processo permite encontrar pontos onde podemos otimizar o nosso código, esses pontos são chamados de /hot spots/.
 
 ** Utilizando gprof para perfilar
-   Para perfilar o código, podemos executar o comando
+   Para perfilar o código, podemos executar comando
    #+BEGIN_SRC sh
      $ make profile
    #+END_SRC
-   ou
+   ou manualmente
    #+BEGIN_SRC sh
-     $ g++
+     $ g++ -g -pg [SOURCE_FILE] -o [OUTPUT_FILE]
+     # Ao executar o código, um arquivo gmon.out será criado
+     $ [OUTPUT_FILE]
+     # O perfil então pode ser criado pelo gprof
+     $ gprof [BIN_FILE] gmon.out > profile.txt
    #+END_SRC
 
 ** Relatório inicial
 
 *** Relatório
    O relatório gerado pelo gprof foi o seguinte:
-#+INCLUDE: "../profiles/profile.txt" example
+   -----
+   #+INCLUDE: "../profiles/profile.txt" example
+   -----
 
 *** Análise
-    Segundo o flat profile, o tempo de execução é de 0.22s e conseguimos perceber dois hotspots:
+    Segundo o flat profile, o tempo de execução é de 0.29s e conseguimos perceber dois hotspots:
     - função timeStep:
-      #+INCLUDE: "../src/laplace.cpp" src cpp :lines "79-99"
+      -----
+      #+INCLUDE: "../src/laplace.cpp" src cpp :lines "79-98"
+      -----
     - função SQR
+      -----
       #+INCLUDE: "../src/laplace.cpp" src cpp :lines "12-13"
+      -----
+
+    Analisando o código em =src/laplace.cpp=, é possível perceber que há espaço para melhorias de desempenho.
 
 
 ** Otimizando o código
 
+*** Função timeStep
+    Apesar de ser uma função com poucas chamadas, a função timeStep é responsável por boa parte do tempo de execução. Essa função pode ser otimizada na maneira que executa algumas operações dentro do loop, que são uma constantes dentro dos loops aninhados.
+
+    Essa função também é responsável pela chamada da função =SQR=, que será analisada no próximo item.
+
+*** Função SQR
+    A função SQR, por ser uma simples multiplicação, pode facilmente ser removida. Ao invés de realizar as chamadas à função SQR, pode ser feita a multiplicação utilizando o operador =*=.
+
+
+   Após as alterações, a função =timeStamp= (que era a única que dependente da função =SQR=) ficou assim:
+   -----
+   #+INCLUDE: "../src/refactor_laplace.cpp" src cpp :lines "79-101"
+   -----
+
 ** Conclusão
+   O relatório gerado pelo gprof após as otimizações é o que segue:
+   -----
+   #+INCLUDE: "../profiles/refactor_profile.txt" example
+   -----
+
+   Podemos notar que houve uma melhora no número de chamadas de funções, vista a remoção da função SQR, e uma redução de 0.05s no tempo gasto pela função =timeStep=.
+
+   Apesar de parecer uma redução pequena, é importante lembrar que quanto maior a escala dos problemas, mais importante são essas otimizações.
