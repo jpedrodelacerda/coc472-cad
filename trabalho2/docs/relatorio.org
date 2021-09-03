@@ -52,7 +52,7 @@ Sobre a perfilagem, é um processo para entender o comportamento e performance d
 ** Otimizando o código
 
 *** Função timeStep
-    Apesar de ser uma função com poucas chamadas, a função timeStep é responsável por boa parte do tempo de execução. Essa função pode ser otimizada na maneira que executa algumas operações dentro do loop, que são uma constantes dentro dos loops aninhados.
+    Apesar de ser uma função com poucas chamadas, a função timeStep é responsável por boa parte do tempo de execução. Essa função pode ser otimizada na maneira que executa algumas operações dentro do loop, visto que recalcula um valor fixo a cada iteração dos loops. Esse valor pode e deve ser armazenado em uma variável e ser referenciado dentro do loop.
 
     Essa função também é responsável pela chamada da função =SQR=, que será analisada no próximo item.
 

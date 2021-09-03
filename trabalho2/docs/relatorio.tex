@@ -1,4 +1,4 @@
-% Created 2021-09-03 Fri 01:01
+% Created 2021-09-03 Fri 01:07
 % Intended LaTeX compiler: pdflatex
 \documentclass[a4paper,twosidep]{article}
 \usepackage[utf8]{inputenc}
@@ -30,7 +30,7 @@
 \maketitle
 
 \section{Introdução}
-\label{sec:orgf0d3447}
+\label{sec:org294caf0}
 
 Este trabalho consiste na execução do código \texttt{./src/laplace.cpp} e na perfilagem do código.
 
@@ -39,7 +39,7 @@ O código é um algoritmo para resolução da Equação de Laplace utilizando o 
 Sobre a perfilagem, é um processo para entender o comportamento e performance de um código. Esse processo permite encontrar pontos onde podemos otimizar o nosso código, esses pontos são chamados de \emph{hot spots}.
 
 \section{Utilizando gprof para perfilar}
-\label{sec:orgeabf1c9}
+\label{sec:org84515c0}
 Para perfilar o código, podemos executar comando
 \begin{verbatim}
 $ make profile
@@ -54,10 +54,10 @@ $ gprof [BIN_FILE] gmon.out > profile.txt
 \end{verbatim}
 
 \section{Relatório inicial}
-\label{sec:orga700adc}
+\label{sec:orgc4e9571}
 
 \subsection{Relatório}
-\label{sec:org818b581}
+\label{sec:org0dcf044}
 O relatório gerado pelo gprof foi o seguinte:
 
 \noindent\rule{\textwidth}{0.5pt}
@@ -269,7 +269,7 @@ Index by function name
 \noindent\rule{\textwidth}{0.5pt}
 
 \subsection{Análise}
-\label{sec:org67cc3b7}
+\label{sec:org51a40b8}
 Segundo o flat profile, o tempo de execução é de 0.29s e conseguimos perceber dois hotspots:
 \begin{itemize}
 \item função timeStep:
@@ -312,20 +312,20 @@ Analisando o código em \texttt{src/laplace.cpp}, é possível perceber que há 
 
 
 \section{Otimizando o código}
-\label{sec:org5bfeccd}
+\label{sec:org06151d7}
 
 \subsection{Função timeStep}
-\label{sec:org76b5eca}
-Apesar de ser uma função com poucas chamadas, a função timeStep é responsável por boa parte do tempo de execução. Essa função pode ser otimizada na maneira que executa algumas operações dentro do loop, que são uma constantes dentro dos loops aninhados.
+\label{sec:org79863e2}
+Apesar de ser uma função com poucas chamadas, a função timeStep é responsável por boa parte do tempo de execução. Essa função pode ser otimizada na maneira que executa algumas operações dentro do loop, visto que recalcula um valor fixo a cada iteração dos loops. Esse valor pode e deve ser armazenado em uma variável e ser referenciado dentro do loop.
 
 Essa função também é responsável pela chamada da função \texttt{SQR}, que será analisada no próximo item.
 
 \subsection{Função SQR}
-\label{sec:orge0ada24}
+\label{sec:orgb6c965c}
 A função SQR, por ser uma simples multiplicação, pode facilmente ser removida. Ao invés de realizar as chamadas à função SQR, pode ser feita a multiplicação utilizando o operador \texttt{*}.
 
 \subsection{Resultado das otimizações}
-\label{sec:org8324176}
+\label{sec:org2a865f5}
 Após as alterações, a função \texttt{timeStamp} (que era a única que dependente da função \texttt{SQR}) ficou assim:
 
 \noindent\rule{\textwidth}{0.5pt}
@@ -357,7 +357,7 @@ Real LaplaceSolver ::timeStep(const Real dt) {
 \noindent\rule{\textwidth}{0.5pt}
 
 \section{Conclusão}
-\label{sec:orgeb56813}
+\label{sec:org3af20f2}
 O relatório gerado pelo gprof após as otimizações é o que segue:
 
 \noindent\rule{\textwidth}{0.5pt}
