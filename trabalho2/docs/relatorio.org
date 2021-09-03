@@ -59,10 +59,10 @@ Sobre a perfilagem, é um processo para entender o comportamento e performance d
 *** Função SQR
     A função SQR, por ser uma simples multiplicação, pode facilmente ser removida. Ao invés de realizar as chamadas à função SQR, pode ser feita a multiplicação utilizando o operador =*=.
 
-
+*** Resultado das otimizações
    Após as alterações, a função =timeStamp= (que era a única que dependente da função =SQR=) ficou assim:
    -----
-   #+INCLUDE: "../src/refactor_laplace.cpp" src cpp :lines "79-101"
+   #+INCLUDE: "../src/refactor_laplace.cpp" src cpp :lines "78-100"
    -----
 
 ** Conclusão

@@ -9,7 +9,6 @@ inline double seconds(void) {
   static const double secs_per_tick = 1.0 / CLOCKS_PER_SEC;
   return ((double)clock()) * secs_per_tick;
 }
-inline Real SQR(const Real &x) { return (x * x); }
 inline Real BC(Real x, Real y) { return (x * x - y * y); }
 
 struct Grid {
