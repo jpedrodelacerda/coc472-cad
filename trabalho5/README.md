@@ -25,7 +25,7 @@ Os parâmetros foram explorados utilizando o script `run.sh`.
 
 #### Melhor resultado - Rmax
 
-Analisando o arquivo `data.csv` podemos dizer que o Rpeak é 39.56.
+Analisando o arquivo `data.csv` podemos dizer que o Rmax é 39.56.
 
 ```python
 import pandas as pd
